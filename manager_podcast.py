@@ -131,10 +131,12 @@ def token(login, password):
 
 
 def list_episode_sync_watch(user_id, remove_readed):
+    print("[list_episode_sync_watch] start")
     if(remove_readed != 'false'):
         reset_sync_watch(user_id)
     dataBase = connect_database()
     cursor = dataBase.cursor()
+    print("[list_episode_sync_watch] select")
     cursor.execute("""SELECT 
                     podcast.id,
                     podcast.title,
@@ -151,6 +153,7 @@ def list_episode_sync_watch(user_id, remove_readed):
                     WHERE sync_watch = 1 AND user_podcast.user_id = %s 
                     ORDER BY podcast.title, episode.position""", (user_id,))
     podcasts = {}
+    print("[list_episode_sync_watch] loop")
     for episode in cursor.fetchall():
         print("[list_episode_sync_watch] episode name :"+episode[1])
         if(episode[0] not in podcasts):
@@ -169,10 +172,12 @@ def list_episode_sync_watch(user_id, remove_readed):
             'duration': episode[7]
         })
     dataBase.close()
+    print("[list_episode_sync_watch] return")
     return list(podcasts.values())
 
 
 def readed_episodes(user_id, ids):
+    print("[readed_episodes] start")
     dataBase = connect_database()
     cursor = dataBase.cursor()
     for id in ids.split(","):
@@ -182,10 +187,12 @@ def readed_episodes(user_id, ids):
                         WHERE user_id = %s AND episode_id = %s""", (user_id, id))
     dataBase.commit()
     dataBase.close()
+    print("[readed_episodes] return")
     return {}
 
 
 def not_readed_episodes(user_id, ids):
+    print("[not_readed_episodes] start")
     dataBase = connect_database()
     cursor = dataBase.cursor()
     for id in ids.split(","):
@@ -195,10 +202,12 @@ def not_readed_episodes(user_id, ids):
                         WHERE user_id = %s AND episode_id = %s""", (user_id, id))
     dataBase.commit()
     dataBase.close()
+    print("[not_readed_episodes] return")
     return {}
 
 
 def sync_watch_episodes(user_id, ids):
+    print("[sync_watch_episodes] start")
     dataBase = connect_database()
     cursor = dataBase.cursor()
     for id in ids.split(","):
@@ -208,6 +217,7 @@ def sync_watch_episodes(user_id, ids):
                         WHERE user_id = %s AND episode_id = %s""", (user_id, id))
     dataBase.commit()
     dataBase.close()
+    print("[sync_watch_episodes] return")
     return {}
 
 
