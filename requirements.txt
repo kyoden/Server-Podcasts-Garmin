@@ -9,4 +9,5 @@ flask-accept==0.0.6
 APScheduler==3.0.0
 werkzeug==0.16.0
 Jinja2==3.0.3
+itsdangerous==2.0.1
 gunicorn
