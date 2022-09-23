@@ -152,6 +152,7 @@ def list_episode_sync_watch(user_id, remove_readed):
                     ORDER BY podcast.title, episode.position""", (user_id,))
     podcasts = {}
     for episode in cursor.fetchall():
+        print("[list_episode_sync_watch] episode name :"+episode[1])
         if(episode[0] not in podcasts):
             podcasts[episode[0]] = {
                 'id': episode[0],
@@ -175,6 +176,7 @@ def readed_episodes(user_id, ids):
     dataBase = connect_database()
     cursor = dataBase.cursor()
     for id in ids.split(","):
+        print("[readed_episodes] id :"+str[id])
         cursor.execute("""UPDATE user_episode 
                         SET readed = 1 
                         WHERE user_id = %s AND episode_id = %s""", (user_id, id))
@@ -187,6 +189,7 @@ def not_readed_episodes(user_id, ids):
     dataBase = connect_database()
     cursor = dataBase.cursor()
     for id in ids.split(","):
+        print("[not_readed_episodes] id :"+str[id])
         cursor.execute("""UPDATE user_episode 
                         SET readed = 0 
                         WHERE user_id = %s AND episode_id = %s""", (user_id, id))
@@ -199,6 +202,7 @@ def sync_watch_episodes(user_id, ids):
     dataBase = connect_database()
     cursor = dataBase.cursor()
     for id in ids.split(","):
+        print("[sync_watch_episodes] id :"+str[id])
         cursor.execute("""UPDATE user_episode 
                         SET sync_watch = 1
                         WHERE user_id = %s AND episode_id = %s""", (user_id, id))
@@ -211,6 +215,7 @@ def not_sync_watch_episodes(user_id, ids):
     dataBase = connect_database()
     cursor = dataBase.cursor()
     for id in ids.split(","):
+        print("[not_sync_watch_episodes] id :"+str[id])
         cursor.execute("""UPDATE user_episode
                         SET sync_watch = 0 
                         WHERE user_id = %s AND episode_id = %s""", (user_id, id))
@@ -220,6 +225,7 @@ def not_sync_watch_episodes(user_id, ids):
 
 
 def reset_sync_watch(user_id):
+    print("[reset_sync_watch]")
     dataBase = connect_database()
     cursor = dataBase.cursor()
     cursor.execute("""UPDATE user_episode 
