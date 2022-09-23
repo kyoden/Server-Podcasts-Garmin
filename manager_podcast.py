@@ -155,7 +155,7 @@ def list_episode_sync_watch(user_id, remove_readed):
     podcasts = {}
     print("[list_episode_sync_watch] loop")
     for episode in cursor.fetchall():
-        print("[list_episode_sync_watch] episode name :"+episode[1])
+        print("[list_episode_sync_watch] podcast name :"+episode[1]+ " | episode name :"+episode[4]+" | audio_url :"+episode[5])
         if(episode[0] not in podcasts):
             podcasts[episode[0]] = {
                 'id': episode[0],
